@@ -1,25 +1,53 @@
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const Header = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <h1>{props.course}</h1>
   );
 }
+
+const Part = (props) => {
+  return (
+    <p>{props.part} {props.exercise}</p>
+  )
+}
+
+const Content = (props) => {
+  return (
+      <div>
+       <Part part={props.part1} exercise={props.exercise1} />
+       <Part part={props.part2} exercise={props.exercise2} />
+       <Part part={props.part3} exercise={props.exercise3} />
+      </div>
+  );
+}
+
+const Total = (props) => {
+  return (
+    <p>Number of exercises { props.exercises }</p>
+  )
+}
+
+const App = () => {
+  const course = "Front End"
+  const part1 = "Fundamental of React"
+  const exercises1 = 10
+  const part2 = "Using props to pass data"
+  const exercises2 = 7
+  const part3 = "State of Component"
+  const exercises3 = 14
+ 
+  return (
+    <div>
+      <Header course={course} />
+      <Content part1={part1} exercise1={exercises1} part2={part2} exercise2={exercises2} part3={part3} exercise3={exercises3} />
+     
+      <Total exercises={exercises1 + exercises2 + exercises3}  />
+      
+      
+    </div>
+  );
+  }
 
 export default App;
