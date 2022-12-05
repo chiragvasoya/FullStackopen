@@ -1,64 +1,57 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
-const Header = (props) => {
-  return (
-    <h1>{props.course}</h1>
-  );
-}
+const Display = ({counter, type}) => <div>{type} Counter: {counter}</div>
 
-const Part = (props) => {
-  return (
-    <p>{props.part} {props.exercise}</p>
-  )
-}
+const Button = ({value, handleClick}) =>  <button onClick={handleClick}>{value}</button>
 
-const Content = (props) => {
-  console.log(props.parts);
-  return (
+const History = ({buttonPress}) => {
+  if(buttonPress.length === 0) {
+    return (
       <div>
-       <Part part={props.parts[0].name} exercise={props.parts[0].exercises} />
-       <Part part={props.parts[1].name} exercise={props.parts[1].exercises} />
-       <Part part={props.parts[2].name} exercise={props.parts[2].exercises} />
+        No button Press History
       </div>
-  );
-}
-
-const Total = (props) => {
+    )
+  }
   return (
-    <p>Number of exercises { props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises }</p>
+    <div>{buttonPress.join(' ')}</div>
   )
 }
+
 
 const App = () => {
-  const course = {
-    name: 'Front End',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
-  }
+
+   const [left, setLeft] = useState(0);
+   const [right, setRight] = useState(0);
+   const [allClicks, setAll] = useState([]);
+
+   const leftClick = () => {  
+
+      setLeft(left + 1);
+      setAll([...allClicks, 'L']);
+      // setAll(allClicks.concat('L'));
+   }; 
+
+
+
+   const rightClick = () => { 
+      setRight(right + 1);
+      setAll([...allClicks, 'R']);
+      // setAll(allClicks.concat('R'))
+   }
+   
+  
  
   return (
     <div>
-      <Header course={course.name} />
-      <Content parts={course.parts} />
-     
-      <Total parts={course.parts}  />
-      
-      
+      <Display counter={left} type="Left"/>
+      <Button handleClick={leftClick} value="Left" />
+      <Button handleClick={rightClick} value="Right" />
+      <Display counter={right} type="Right" />
+      <History buttonPress={allClicks}  />
     </div>
   );
   }
 
 export default App;
+
