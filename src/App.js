@@ -10,30 +10,34 @@ const Statstics = ({good, bad, neutral, total, avg}) => {
   )
   }
   return (
-    <>
+    <table>
+      <tbody>
     <Display vote={good} type="Good" />
     <Display vote={bad} type="Bad" />
     <Display vote={neutral} type="Neutral" />
     <Display vote={total} type="All" />
     <Display vote={avg/total} type="Avg" />
     <Display vote={good/total} type="Positive" />
-    </>
+    </tbody>
+    </table>
   )
 }
 
 const Display = ({vote, type}) => {
-  if (isNaN(vote)) {
-    return (
-    <div>{type} : 0</div>
-    )
-  } 
+ 
   if (type === 'Positive') {
     return (
-    <div>{type} : {vote} %</div>
+    <tr>
+      <td>{type}</td> 
+      <td>{vote} %</td> 
+    </tr>
     )
   } 
  return (
-  <div>{type} : {vote}</div>
+    <tr>
+      <td>{type}</td> 
+      <td>{vote}</td> 
+    </tr>
  )
 }
 
