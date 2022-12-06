@@ -1,7 +1,19 @@
 import './App.css';
 import { useState } from 'react';
 
+const Anecdote = ({votes, anecdotes}) => {
 
+  const maxVote = Math.max(...votes);
+  const maxIndex = votes.indexOf(maxVote);
+  if (maxVote === 0) {
+  return (
+    <p>No Votes yet</p>
+  )
+  }
+  return (
+    <p>{ anecdotes[maxIndex] }</p>
+  )
+}
 
 const App = () => {
 
@@ -19,6 +31,7 @@ const App = () => {
 
   const [selected, setSelected] = useState(0);
   const [vote, setVote] = useState(new Array(anecdotesLength).fill(0));   //set array with length 7 and fill with 0 values
+
 
   const randDisplay = () => {
     setSelected(Math.floor(Math.random()* anecdotesLength));
@@ -38,6 +51,9 @@ const App = () => {
 
        <button onClick={voteCount}>Vote</button>
        <button onClick={randDisplay}>Next Anecdotes</button>
+
+       <h2>Most Votes</h2>
+       <Anecdote votes={vote}  anecdotes={anecdotes} />
     
     </div>
   );
