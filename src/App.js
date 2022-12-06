@@ -1,6 +1,26 @@
 import './App.css';
 import { useState } from 'react';
 
+const Statstics = ({good, bad, neutral, total, avg}) => {
+  if (total  === 0) {
+  return (
+    <div>
+      No Feedback recived yet
+    </div>
+  )
+  }
+  return (
+    <>
+    <Display vote={good} type="Good" />
+    <Display vote={bad} type="Bad" />
+    <Display vote={neutral} type="Neutral" />
+    <Display vote={total} type="All" />
+    <Display vote={avg/total} type="Avg" />
+    <Display vote={good/total} type="Positive" />
+    </>
+  )
+}
+
 const Display = ({vote, type}) => {
   if (isNaN(vote)) {
     return (
@@ -18,20 +38,6 @@ const Display = ({vote, type}) => {
 }
 
 const Button = ({value, handleClick}) =>  <button onClick={handleClick}>{value}</button>
-
-const History = ({buttonPress}) => {
-  if(buttonPress.length === 0) {
-    return (
-      <div>
-        No button Press History
-      </div>
-    )
-  }
-  return (
-    <div>{buttonPress.join(' ')}</div>
-  )
-}
-
 
 const App = () => {
 
@@ -64,13 +70,9 @@ const App = () => {
       <Button handleClick={badClick} value="Bad" />
       <Button handleClick={neutralClick} value="Neutral" />
       <h2>Statstics</h2>
-      <Display vote={good} type="Good" />
-      <Display vote={bad} type="Bad" />
-      <Display vote={neutral} type="Neutral" />
-      <Display vote={total} type="All" />
-      <Display vote={avg/total} type="Avg" />
-      <Display vote={good/total} type="Positive" />
-      {/* <History buttonPress={allClicks}  /> */}
+      <Statstics good={good} bad={bad} neutral={neutral} total={total} avg={avg} />
+     
+    
     </div>
   );
   }
