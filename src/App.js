@@ -1,81 +1,35 @@
 import './App.css';
 import { useState } from 'react';
 
-const Statstics = ({good, bad, neutral, total, avg}) => {
-  if (total  === 0) {
-  return (
-    <div>
-      No Feedback recived yet
-    </div>
-  )
-  }
-  return (
-    <table>
-      <tbody>
-    <Display vote={good} type="Good" />
-    <Display vote={bad} type="Bad" />
-    <Display vote={neutral} type="Neutral" />
-    <Display vote={total} type="All" />
-    <Display vote={avg/total} type="Avg" />
-    <Display vote={good/total} type="Positive" />
-    </tbody>
-    </table>
-  )
-}
 
-const Display = ({vote, type}) => {
- 
-  if (type === 'Positive') {
-    return (
-    <tr>
-      <td>{type}</td> 
-      <td>{vote} %</td> 
-    </tr>
-    )
-  } 
- return (
-    <tr>
-      <td>{type}</td> 
-      <td>{vote}</td> 
-    </tr>
- )
-}
-
-const Button = ({value, handleClick}) =>  <button onClick={handleClick}>{value}</button>
 
 const App = () => {
 
-   const [good, setGood] = useState(0);
-   const [bad, setBad] = useState(0);
-   const [neutral, setNeutral] = useState(0);
-   const [avg, setAvg] = useState(0);
-   const total = good + bad + neutral;
+  const anecdotes = [
+    'If it hurts, do it more often.',
+    'Adding manpower to a late software project makes it later!',
+    'The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+    'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+    'Premature optimization is the root of all evil.',
+    'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.'
+  ];
 
-   const goodClick = () => {
-    setGood(good + 1);
-    setAvg(avg + 1);
-   }
+  const anecdotesLength = anecdotes.length;
 
-   const badClick = () => {
-    setBad(bad + 1);
-    setAvg(avg - 1);
-   }
+  const [selected, setSelected] = useState(0);
+ 
 
-   const neutralClick = () => {
-    setNeutral(neutral + 1);
-    setAvg(avg);
-   }
-
+  const randDisplay = () => {
+    setSelected(Math.floor(Math.random()* anecdotesLength));
+  }
 
   return (
     <div>
-      <h2>Feedback App</h2>
-      <Button handleClick={goodClick} value="Good" />
-      <Button handleClick={badClick} value="Bad" />
-      <Button handleClick={neutralClick} value="Neutral" />
-      <h2>Statstics</h2>
-      <Statstics good={good} bad={bad} neutral={neutral} total={total} avg={avg} />
-     
+      
+       <p>{ anecdotes[selected] }</p>
+
+       <button onClick={randDisplay}>Display Anecdotes</button>
     
     </div>
   );
